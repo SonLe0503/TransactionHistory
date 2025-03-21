@@ -1,17 +1,17 @@
 import { useState } from "react"
 
-function IndexPopup() {
+function IndexPopup() {       
   const [data, setData] = useState("")
 
   return (
     <div
       style={{
-        padding: 16
+        padding: 16   
       }}>
       <h2>
         Welcome to your{" "}
         <a href="https://www.plasmo.com" target="_blank">
-          Plasmo
+          Plasmo    
         </a>{" "}
         Extension!
       </h2>

@@ -1,0 +1,27 @@
+.login-container {
+  width: 300px;
+  padding: 20px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+}
+.form-group input {
+  padding: 8px 12px;
+}
+.primary-button {
+  padding: 8px 12px;
+  background-color: rgba(20, 30, 210, 1);
+  color: rgba(255,255,255,1);
+  border: none;
+}
