@@ -1,10 +1,4 @@
-const CURRENT_DOMAIN = "online.mbbank.com.vn"
-const URL_DEFAULT_MB = [
-  "https://online.mbbank.com.vn/api/retail_web/loyalty/getBalanceLoyalty",
-  "https://online.mbbank.com.vn/api/retail-web-accountms/getBalance",
-  "https://online.mbbank.com.vn/api/retail-web-onlineloanms/loan/getList",
-  "https://online.mbbank.com.vn/api/retail_web/internetbanking/getFavorBeneficiaryList"
-]
+import { CURRENT_DOMAIN, URL_DEFAULT_MB } from "../constants/urls";
 
 interface RequestHeader {
   method: string

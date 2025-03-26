@@ -36,8 +36,5 @@
     ]
   },
   "plasmo": {
-    "background": {
-      "script": "/src/background.ts"
-    }
   }
 }

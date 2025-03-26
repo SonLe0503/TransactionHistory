@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
+import { URL_TRANSACTION_HISTORY_MB } from "../../../constants/urls";
 
-import { merRequests } from "../../../auth";
-import "../../../styles/transaction.css"
+import { merRequests } from "../../../utils/auth";
+import "../../../styles/transaction.css";
+import { sendTransaction } from "../../../utils/sendTransaction";
 interface Transaction {
   transactionDate: string
   creditAmount: string
-  debitAmount: string
+  debitAmount: string 
   currency: string
   refNo: string
   description: string
@@ -48,29 +50,25 @@ const MBBank = ({ navigate }: MBBankProps) => {
     authInfo.headers.forEach((header) => {
       myHeaders.append(header.name, header.value)
     })
-    console.log("myHeaders", myHeaders)
     const rawData = {
       ...authInfo.body,
       fromDate: formatDateForApi(fromDate),
       toDate: formatDateForApi(toDate),
       accountNo: accountNo
     }
-    console.log("rawData", rawData)
     const requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify(rawData),
       redirect: "follow" as RequestRedirect
     }
-    console.log("requestOptions", requestOptions)
     try {
       const response = await fetch(
-        "https://online.mbbank.com.vn/api/retail-transactionms/transactionms/get-account-transaction-history",
+        URL_TRANSACTION_HISTORY_MB,
         requestOptions
       )
       console.log("response", response)
       const result = await response.json()
-      console.log("result", result)
       setTransactions(result.transactionHistoryList ?? [])
     } catch (error) {
       console.error("Error fetching transactions:", error)
@@ -91,23 +89,7 @@ const MBBank = ({ navigate }: MBBankProps) => {
         bankName: bankName,
       }
     });
-    const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:2000/transaction/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({ transactions: transactionData}),
-    });
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => null);
-      throw new Error(
-        `Lỗi server: ${response.status} - ${response.statusText}\n` +
-        `Chi tiết: ${errorData ? JSON.stringify(errorData) : 'Không có thông tin thêm'}`
-      );
-    }
-    alert("Đã lấy được dữ liệu giao dịch về hệ thống!");
+    await sendTransaction(transactionData);
    } catch (error) {
     console.error("Lỗi khi gửi dữ liệu", error);
     alert("Có lỗi xảy ra, vui lòng thử lại!");
