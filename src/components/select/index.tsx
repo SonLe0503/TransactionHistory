@@ -1,27 +1,25 @@
 import "../../styles/selectBank.css";
-import imageMbbank from "../../assets/images/mbbank.png";
-import imageVietcombank from "../../assets/images/vietcombank.png";
-type SelectBankProps = {
+type SelectProps = {
   navigate: (page: string) => void; 
 }
                
-const SelectBank = ({navigate}: SelectBankProps) => {
+const Select = ({navigate}: SelectProps) => {
   return (
     <div className="select-bank-container">
       <h2>Chọn ngân hàng</h2>
       <div className="bank-list">
         <div className="bank-item">
-          <button onClick={() => navigate('MBbank')}>
-            <img src={imageMbbank} alt="MBbank" />
+          <button onClick={() => navigate('Synch-API')}>
+            Synch API
           </button>
         </div>
         <div className="bank-item">
-          <button>
-            <img src={imageVietcombank} alt="Vietcombank" />
+          <button onClick={() => navigate("Synch-Web")}>
+            Synch Web
           </button>
         </div>
       </div>
     </div>
   )
 }
-export default SelectBank;
+export default Select;

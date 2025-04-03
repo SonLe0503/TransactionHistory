@@ -21,10 +21,10 @@ interface AuthInfo {
   headers: { name: string; value: string }[]
 }
 
-interface MBBankProps {
+interface SynchApiProps {
   navigate: (page: string) => void
 }
-const MBBank = ({ navigate }: MBBankProps) => {
+const SynchApi = ({ navigate }: SynchApiProps) => {
   const [fromDate, setFromDate] = useState("")
   const [toDate, setToDate] = useState("")
   const [accountNo, setAccountNo] = useState("")
@@ -211,4 +211,4 @@ const MBBank = ({ navigate }: MBBankProps) => {
     </>
   )
 }
-export default MBBank
+export default SynchApi

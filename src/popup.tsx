@@ -1,15 +1,17 @@
 import { useState } from "react"
 import Login from "./components/login"
-import SelectBank from "./components/select"
-import MBBank from "./components/transactions/mbbank"
+import Select from "./components/select"
+import SynchApi from "./components/transactions/synchApi"
+import SynchWeb from "./components/transactions/synchWeb"
 function IndexPopup() {       
   const [page, setPage] = useState("login")
 
   return (
     <>
       {page === "login" && <Login navigate={setPage} />}
-      {page === "select-bank" && <SelectBank navigate={setPage} />}
-      {page === "MBbank" && <MBBank navigate={setPage} />}
+      {page === "select" && <Select navigate={setPage} />}
+      {page === "Synch-API" && <SynchApi navigate={setPage} />}
+      {page === "Synch-Web" && <SynchWeb navigate={setPage} />}
     </>
   )
 }

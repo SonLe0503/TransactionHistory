@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import "../../styles/login.css"
 
@@ -10,6 +10,13 @@ const Login = ({ navigate }: LoginProps) => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [errorMessage, setErrorMessage] = useState<string>("")
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if(token) {
+      navigate("select")
+    }
+  }, [navigate])
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (username === "" || password === "") {
@@ -27,7 +34,7 @@ const Login = ({ navigate }: LoginProps) => {
         throw new Error(data.message || "Đăng nhập thất bại")
       }
       localStorage.setItem("token", data.access_token)
-      navigate("select-bank")
+      navigate("select")
     } catch (error) {
       setErrorMessage(error.message || "Đăng nhập thất bại")
     }
