@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import "../../styles/login.css"
 
@@ -10,7 +10,15 @@ const Login = ({ navigate }: LoginProps) => {
   const [username, setUsername] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [errorMessage, setErrorMessage] = useState<string>("")
-  const handleLogin = async () => {
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if(token) {
+      navigate("select")
+    }
+  }, [navigate])
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (username === "" || password === "") {
       setErrorMessage("Vui lòng nhập tên tài khoản và mật khẩu")
       return
@@ -25,7 +33,7 @@ const Login = ({ navigate }: LoginProps) => {
       if (!response.ok) {
         throw new Error(data.message || "Đăng nhập thất bại")
       }
-      chrome.storage.local.set({ token: data.access_token })
+      localStorage.setItem("token", data.access_token)
       navigate("select")
     } catch (error) {
       setErrorMessage(error.message || "Đăng nhập thất bại")
@@ -60,7 +68,7 @@ const Login = ({ navigate }: LoginProps) => {
             <button
               type="submit"
               className="primary-button"
-              onClick={() => handleLogin()}>
+              onClick={(e) => handleLogin(e)}>
               Đăng nhập
             </button>
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
